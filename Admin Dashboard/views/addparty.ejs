@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Party</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .container img {
+            display: block;
+            margin: 50px auto 40px auto; /* Center image and add bottom margin */
+            width: 600px; /* Adjust width as needed */
+        }
+
+        .back-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: rgba(190, 29, 7, 0.9);
+            color: #fff;
+            border-radius: 8px;
+            padding: 10px 20px;
+            text-decoration: none;
+            transition: transform 0.2s;
+        }
+
+        .back-button:hover {
+            background-color: rgba(199, 173, 56, 0.9);
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <a href="javascript:history.back()" class="back-button">Back</a>
+        <img src="https://elections.gov.lk/images/logo-01.png" alt="Emblem of Sri Lanka">
+        <h2 class="mb-4">Add Party</h2>
+        <form id="addPartyForm" action="addparty" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="party_name">Party Name</label>
+                <input type="text" class="form-control" id="party_name" name="party_name" placeholder="Enter party name" required>
+            </div>
+            <div class="form-group">
+                <label for="logo">Party Logo</label>
+                <input type="file" class="form-control-file" id="logo" name="logo" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Party</button>
+        </form>
+
+        <h2 class="mt-5 mb-4">Existing Parties</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Party Name</th>
+                    <th>Party Logo</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% parties.forEach(function(party) { %>
+                    <tr>
+                        <td><%= party.party_name %></td>
+                        <td>
+                            <img src="/uploads/<%= party.logo %>" alt="<%= party.party_name %> Logo" style="width: 50px; height: auto;">
+                        </td>
+                        <td>
+                            <form action="/deleteparty/<%= party._id %>" method="POST" style="display: inline;">
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

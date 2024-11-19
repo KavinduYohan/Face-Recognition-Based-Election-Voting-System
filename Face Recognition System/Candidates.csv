@@ -1,0 +1,11 @@
+nicNumber,Cname,district,districtID,partyname,Number,ElectionName,Sign,PersonId,vote_count,vote_count_option_1,vote_count_option_2,vote_count_option_3
+858363650,Candidate1,Colombo,LK01,UPP,80,Parliament,80,66498697a17a24c6301d5710,0,0,0,0
+858363651,Candidate2,Gampaha,LK02,SPP,81,President,81,66498697a17a24c6301d5711,0,0,0,0
+858363652,Candidate3,Kandy,LK21,JPP,82,Local,82,66498697a17a24c6301d5712,0,0,0,0
+858363653,Candidate4,Matara,LK23,SPP,83,Parliament,83,66498697a17a24c6301d5713,0,0,0,0
+858363654,Candidate5,Kurunegala,LK06,UPP,84,President,84,66498697a17a24c6301d5714,0,0,0,0
+858363655,Candidate6,Colombo,LK01,JPP,85,Local,85,66498697a17a24c6301d5715,0,0,0,0
+858363656,Candidate7,Galle,LK24,SPP,86,Parliament,86,66498697a17a24c6301d5716,0,0,0,0
+858363657,Candidate8,Nuwara Eliya,LK22,UPP,87,President,87,66498697a17a24c6301d5717,0,0,0,0
+858363658,Candidate9,Jaffna,LK10,JPP,88,Local,88,66498697a17a24c6301d5718,0,0,0,0
+858363659,Candidate10,Kegalle,LK05,SPP,89,Parliament,89,66498697a17a24c6301d5719,0,0,0,0

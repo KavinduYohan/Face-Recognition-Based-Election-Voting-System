@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Candidate</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            max-width: 600px;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+        .form-group label {
+            font-weight: bold;
+        }
+        button[type="submit"] {
+            background-color: #007bff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <div>  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="/"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/controlPanel">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/showStudent">Add Voter</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/elections">Elections</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
+    <div class="container mt-5">
+        <h2 class="mb-4 text-center">Add Candidate</h2>
+        <form id="addCandidateForm" action="/AddCandidates" method="POST" enctype="multipart/form-data">
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label for="nicNumber">NIC Number</label>
+                    <input type="text" class="form-control" id="nicNumber" name="nicNumber" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label for="Cname">Candidate Name</label>
+                    <input type="text" class="form-control" id="Cname" name="Cname" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <label for="district">District</label>
+                    <select class="form-control" id="district" name="district" required>
+                        <option value="" disabled selected>Select District</option>
+                        <option value="Ampara">Ampara</option>
+                        <option value="Anuradhapura">Anuradhapura</option>
+                        <option value="Badulla">Badulla</option>
+                        <option value="Batticaloa">Batticaloa</option>
+                        <option value="Colombo">Colombo</option>
+                        <option value="Galle">Galle</option>
+                        <option value="Gampaha">Gampaha</option>
+                        <option value="Hambantota">Hambantota</option>
+                        <option value="Jaffna">Jaffna</option>
+                        <option value="Kalutara">Kalutara</option>
+                        <option value="Kandy">Kandy</option>
+                        <option value="Kegalle">Kegalle</option>
+                        <option value="Kilinochchi">Kilinochchi</option>
+                        <option value="Kurunegala">Kurunegala</option>
+                        <option value="Mannar">Mannar</option>
+                        <option value="Matale">Matale</option>
+                        <option value="Matara">Matara</option>
+                        <option value="Moneragala">Moneragala</option>
+                        <option value="Mullaitivu">Mullaitivu</option>
+                        <option value="Nuwara Eliya">Nuwara Eliya</option>
+                        <option value="Polonnaruwa">Polonnaruwa</option>
+                        <option value="Puttalam">Puttalam</option>
+                        <option value="Ratnapura">Ratnapura</option>
+                        <option value="Trincomalee">Trincomalee</option>
+                        <option value="Vavuniya">Vavuniya</option>
+                    </select>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label for="partyname">Party Name</label>
+                    <input type="text" class="form-control" id="partyname" name="partyname" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label for="Number">Number</label>
+                    <input type="text" class="form-control" id="Number" name="Number" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label for="ElectionName">Election Name</label>
+                    <select class="form-control" id="ElectionName" name="ElectionName" required>
+                        <option value="" disabled selected>Select Election Type</option>
+                        <option value="Presidential">Presidential</option>
+                        <option value="Parliament">Parliament</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label for="Sign">Sign</label>
+                    <input type="file" class="form-control-file" id="Sign" name="Sign">
+                </div>
+            </div>
+            <!-- Hidden input for PersonId -->
+            <input type="hidden" id="PersonId" name="PersonId" value="5ff3b9a43e256a1a2c4f6992">
+            <!-- Replace the value above with the actual ObjectId of the person -->
+            <div class="form-row">
+                <div class="form-group col-md-12 text-center">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Bootstrap JS and jQuery (required for Bootstrap) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

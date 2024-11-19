@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Candidates</title>
+  
+  <!-- Include Bootstrap CSS -->
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    /* Optional custom CSS for button alignment */
+    .action-btns {
+      display: flex;
+      justify-content: space-around;
+    }
+
+    body {
+      background-color: #f8f9fa;
+    }
+
+    .container {
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    table th, table td {
+      text-align: center;
+      vertical-align: middle;
+    }
+
+    .btn-upload {
+      margin-top: 20px;
+    }
+
+    .no-data {
+      text-align: center;
+      font-size: 1.2em;
+      color: #6c757d;
+    }
+
+    .containerV h2 {
+            text-align: center;
+            
+            margin-bottom: 10px;
+            margin-top: 10px; /* Adjust the top margin to push the header down */
+            font-weight: bold; /* Make the header bold */
+            color: rgba(190, 29, 7, 0.9); /* Light text color */
+        }
+
+    .containerV img {
+            display: block;
+            margin: 50px auto 40px auto; /* Center image and add bottom margin */
+            width: 600px; /* Adjust width as needed */
+        }
+
+    .back-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: rgba(190, 29, 7, 0.9);
+            color: #fff;
+            border-radius: 8px;
+            padding: 10px 20px;
+            text-decoration: none;
+            transition: transform 0.2s;
+        }
+
+    .back-button:hover {
+            background-color: rgba(199, 173, 56, 0.9);
+            transform: scale(1.05);
+        }
+  </style>
+
+</head>
+<body>
+  <div class="containerV">
+    <a href="javascript:history.back()" class="back-button">Back</a>
+    <img src="https://elections.gov.lk/images/logo-01.png" alt="Emblem of Sri Lanka">
+   
+</div>
+  <div class="container mt-5">
+    <form action="/uploadCandidates" method="post" enctype="multipart/form-data" class="text-center">
+      <input type="file" name="file" class="form-control-file" />
+      <button type="submit" class="btn btn-primary btn-upload">Upload CSV</button>
+      <p>NOTE:You must upload finalizest list here</p>
+    </form>
+  </div>
+
+  <% if (empData.length > 0) { %>
+    <div class="container mt-5">
+      <table class="table table-bordered table-hover" id="dataTable">
+        <thead class="thead-dark">
+          <tr>
+            <!-- <th>User ID</th> -->
+            <th>NIC</th>
+            <th>Name</th>
+            <th>Party Name</th>
+            <th>Number</th>
+            <th>Election Name</th>
+            <!-- <th>Preference-1</th>
+            <th>Preference-2</th>
+            <th>Preference-3</th> -->
+            <th>Action</th> 
+          </tr>
+        </thead>
+        <tbody>
+          <% empData.forEach(data => { %>
+            <tr>
+              <!-- <td><%= data._id %></td>  -->
+              <td><%= data.nicNumber %></td>
+              <td><%= data.Cname %></td>
+              <td><%= data.partyname %></td>
+              <td><%= data.Number %></td>
+              <td><%= data.ElectionName %></td>
+              <!-- <td><%= data.vote_count_option_1 %></td>
+              <td><%= data.vote_count_option_2 %></td>
+              <td><%= data.vote_count_option_3 %></td> -->
+              <td class="action-btns">
+                <form method="POST" action="/deleteCandidate/<%= data._id %>" style="display: inline;">
+                  <input type="hidden" name="_method" value="DELETE"> 
+                  <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                </form>
+              </td>
+              
+              </td>
+            </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    </div>
+  <% } else { %>
+    <div class="container mt-5">
+      <p class="no-data">No data found for this candidate.</p>
+    </div>
+  <% } %>
+
+  <!-- Include Bootstrap JS and any other scripts -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="js/employee.js"></script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ballot Collection</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .container img {
+            display: block;
+            margin: 50px auto 40px auto; /* Center image and add bottom margin */
+            width: 600px; /* Adjust width as needed */
+        }
+
+        .back-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: rgba(190, 29, 7, 0.9);
+            color: #fff;
+            border-radius: 8px;
+            padding: 10px 20px;
+            text-decoration: none;
+            transition: transform 0.2s;
+        }
+
+        .back-button:hover {
+            background-color: rgba(199, 173, 56, 0.9);
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+    <a href="javascript:history.back()" class="back-button">Back</a>
+    <img src="https://elections.gov.lk/images/logo-01.png" alt="Emblem of Sri Lanka">
+        <h1>Ballot Collection</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Ballot ID</th>
+                <th>Candidate NIC 1(V1)</th>
+                <th>Candidate NIC 2(V2)</th>
+                <th>Candidate NIC 3(V3)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% if (ballots && ballots.length > 0) { %>
+                <% ballots.forEach(ballot => { %>
+                    <tr>
+                        <td><%= ballot._id %></td>
+                        <td><%= ballot.candidate_nic1 %></td>
+                        <td><%= ballot.candidate_nic2 %></td>
+                        <td><%= ballot.candidate_nic3 %></td>
+                    </tr>
+                <% }); %>
+            <% } else { %>
+                <tr>
+                    <td colspan="4">No ballots found</td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+        
+    </div>
+    
+</body>
+</html>

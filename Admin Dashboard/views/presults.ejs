@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Election Results</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+     .containerN h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            margin-top: 20px; /* Adjust the top margin to push the header down */
+            font-weight: bold; /* Make the header bold */
+            color: rgba(190, 29, 7, 0.9); /* Light text color */
+        }
+
+        .containerN img {
+            display: block;
+            margin: 50px auto 40px auto; /* Center image and add bottom margin */
+            width: 600px; /* Adjust width as needed */
+        }
+
+        .back-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: rgba(190, 29, 7, 0.9);
+            color: #fff;
+            border-radius: 8px;
+            padding: 10px 20px;
+            text-decoration: none;
+            transition: transform 0.2s;
+        }
+
+        .back-button:hover {
+            background-color: rgba(199, 173, 56, 0.9);
+            transform: scale(1.05);
+        }
+  </style>
+</head>
+<body>
+  <div class="containerN">
+    <a href="javascript:history.back()" class="back-button">Back</a>
+    <img src="https://elections.gov.lk/images/logo-01.png" alt="Emblem of Sri Lanka">
+    <h2>Parliament Election Results</h2>
+
+</div>
+  <div class="container mt-5">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Party Name</th>
+          <th scope="col">Logo</th>
+          <th scope="col">Votes</th>
+         
+        </tr>
+      </thead>
+      <tbody>
+        <% party.forEach((p, index) => { %>
+          <tr>
+            <th scope="row"><%= index + 1 %></th>
+            <td><%= p.party_name %></td>
+            <td><img src="/uploads/<%= p.logo %>" alt="Logo" class="img-thumbnail" style="width: 50px; height: 50px;"></td>
+            <td><%= p.votes %></td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+  <div class="container mt-5">
+    <h1 class="text-center">Candidates' Results</h1>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Party Name</th>
+          <th scope="col">Name</th>
+          <th scope="col">District</th>
+          <th scope="col">Number</th>
+          <th scope="col">Votes</th>
+         
+        </tr>
+      </thead>
+      <tbody>
+        <% candi.forEach((c, index) => { %>
+          <tr>
+            <th scope="row"><%= index + 1 %></th>
+            <td><%= c.partyname %></td>
+            <td><%= c.Cname %></td>
+            <td><%= c.district %></td>
+            <td><%= c.Number %></td>
+            <td><%= c.vote_count_option_1 %></td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

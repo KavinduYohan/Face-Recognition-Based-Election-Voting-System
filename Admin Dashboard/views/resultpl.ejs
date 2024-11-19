@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Election Results</title>
+  <style>
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      border: 1px solid black;
+      padding: 8px;
+      text-align: left;
+    }
+    /* Define colors for parties */
+    .party1 { background-color: rgb(228, 110, 110); }
+    .party2 { background-color: rgb(211, 211, 103); }
+    /* Add more classes for other parties as needed */
+  </style>
+</head>
+<body>
+  <h1>Election Results</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Party Name</th>
+        <th>Candidate Name</th>
+        <th>Candidate Number</th>
+        <th>Vote Count</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% let partyColors = {}; %>
+      <% results.forEach((result, index) => { %>
+        <% const partyClassName = `party${index + 1}`; %>
+        <% partyColors[result.party_name] = partyClassName; %>
+        <% result.candidates.forEach(candidate => { %>
+          <tr class="<%= partyClassName %>">
+            <td><%= result.party_name %></td>
+            <td><%= candidate.candidate_name %></td>
+            <td><%= candidate.candidate_number %></td>
+            <td><%= candidate.vote_count %></td>
+          </tr>
+        <% }); %>
+      <% }); %>
+    </tbody>
+  </table>
+</body>
+</html>

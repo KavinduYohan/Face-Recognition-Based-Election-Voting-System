@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - Election Details</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      display: flex;
+      min-height: 100vh;
+      flex-direction: column;
+    }
+    .wrapper {
+      display: flex;
+      width: 100%;
+      height: 100vh;
+    }
+    .sidebar {
+      width: 250px;
+      background: #343a40;
+      padding: 20px;
+      color: white;
+      height: 100vh;
+      position: fixed;
+    }
+    .sidebar a {
+      color: white;
+      text-decoration: none;
+      display: block;
+      padding: 10px;
+    }
+    .sidebar a:hover {
+      background: #4b657e;
+    }
+    .content {
+      margin-left: 250px;
+      padding: 20px;
+      width: 100%;
+    }
+    table th, table td {
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <nav class="sidebar">
+      <img src="https://elections.gov.lk/images/logo-01.png" alt="Admin Dashboard Logo" class="img-fluid mb-4">
+      <a href="/election">Dashboard</a>
+      <a href="/showStudent">All Voters</a>
+      <a href="/addparty">Add New Party</a>
+      <!-- <a href="/signup">Asign Admin</a> -->
+      
+    </nav>
+    <div class="content">
+      <h1>Election Details</h1>
+      <div class="row mb-3">
+        <div class="col">
+          <form action="/add" method="post" class="row g-3">
+            <div class="col-md-4">
+              <select class="form-control" name="election_name" required>
+                  <option value="" disabled selected>Select Election Type</option>
+                  <option value="presidential">Presidential</option>
+                  <option value="parliament">Parliament</option>
+              </select>
+          </div>
+          
+          <div class="col-md-4">
+            <input type="date" class="form-control" name="date" id="date" required>
+          </div>
+            <div class="col-md-4">
+              <button type="submit" class="btn btn-primary">Add Election</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      
+      <table id="electionsTable" class="table table-bordered">
+        <thead class="table-dark">
+          <tr>
+            <th>Election Name</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% election.forEach(electione => { %>
+            <tr>
+              <td><%= electione.election_name %></td>
+              <td><%= electione.date %></td>
+              <td><%= electione.status %></td>
+              <td>
+                <form action="/delete/<%= electione._id %>?_method=DELETE" method="POST" style="display:inline;">
+                  <button type="submit" class="btn btn-danger">Remove</button>
+                </form>
+              </td>
+            </tr>
+          <% }); %>
+        </tbody>
+      </table>
+      
+      
+    </div>
+  </div>
+  <section style="padding-left: 300px; margin-top: -200px;"> 
+    <div class="container">
+      <div class="row">
+        <% election.forEach((electione, index) => { %>
+          <div class="col-md-6 mb-4">
+            <div class="card h-100">
+              <div class="card-body">
+                <p class="card-text"><strong>Election Name:</strong> <%= electione.election_name %></p>
+                <p class="card-text"><strong>Date:</strong> <%= electione.date %></p>
+              </div>
+              <a href="<%= electione.election_name === 'presidential' ? '/presidential' : electione.election_name === 'parliment' ? '/parliment' : '#' %>" class="btn btn-primary">Manage</a>
+            </div>
+          </div>
+          <% if ((index + 1) % 2 === 0) { %>
+            </div><div class="row">
+          <% } %>
+        <% }); %>
+      </div>
+    </div>
+  </section>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+ 
+    const today = new Date();
+    
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    
+ 
+    const tomorrowFormatted = tomorrow.toISOString().split('T')[0];
+    
+    
+    document.getElementById('date').setAttribute('min', tomorrowFormatted);
+  </script>
+</body>
+</html>

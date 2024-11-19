@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Candidates</title>
+  
+  <!-- Include Bootstrap CSS -->
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Include Chart.js Library -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    .action-btns {
+      display: flex;
+      justify-content: space-around;
+    }
+    .table-container {
+      background-color: #f9f9f9;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .results-header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .status-selected {
+      color: green;
+      font-weight: bold;
+    }
+    .status-not-selected {
+      color: red;
+      font-weight: bold;
+    }
+    .total-votes, .max-votes-candidate {
+      margin-top: 20px;
+      background-color: #ffffff;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .chart-container {
+      margin-top: 20px;
+      width: 500px;
+      height: 500px;
+    }
+    <style>
+        .notification {
+            border: 2px solid #007bff;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            background-color: #e9f7ff;
+            margin-top: 20px;
+        }
+        .notification-message {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        .btn {
+            display: inline-block;
+            font-weight: 400;
+            color: #fff;
+            text-align: center;
+            vertical-align: middle;
+            user-select: none;
+            background-color: #007bff;
+            border: 1px solid #007bff;
+            padding: 0.375rem 0.75rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            border-radius: 0.25rem;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+            border-color: #004085;
+        }
+
+        .center-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 150px; /* Full viewport height */
+            text-align: center;
+      }
+      .container img {
+            display: block;
+            margin: 50px auto 40px auto; /* Center image and add bottom margin */
+            width: 600px; /* Adjust width as needed */
+        }
+
+        .back-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: rgba(190, 29, 7, 0.9);
+            color: #fff;
+            border-radius: 8px;
+            padding: 10px 20px;
+            text-decoration: none;
+            transition: transform 0.2s;
+        }
+
+        .back-button:hover {
+            background-color: rgba(199, 173, 56, 0.9);
+            transform: scale(1.05);
+        }
+
+  </style>
+</head>
+<body>
+  <div class="container mt-5">
+    <a href="javascript:history.back()" class="back-button">Back</a>
+    <img src="https://elections.gov.lk/images/logo-01.png" alt="Emblem of Sri Lanka">
+    <% if (candidates.length > 0) { %>
+      <div class="results-header">
+        <h2>Candidate Results</h2>
+      </div>
+      <div class="table-container">
+        <table class="table table-bordered">
+          <thead class="thead-dark">
+            <tr>
+              <th>Candidate Name</th>
+              <th>Total of the 1st Preference</th>
+              <th>Total of the 2nd Preference</th>
+              <th>Total of the 3rd Preference</th>
+              <th>Percentage of Votes (Option 1)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% candidates.forEach(candidate => { %>
+              <tr>
+                <td><%= candidate.Cname %></td>
+                <td><%= candidate.vote_count_option_1 %></td>
+                <td><%= candidate.vote_count_option_2 %></td>
+                <td><%= candidate.vote_count_option_3 %></td>
+                <td><%= candidate.votePercentageOption1.toFixed(2) %> %</td>
+              </tr>
+            <% }); %>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="total-votes">
+        <h4>Total Votes for 1st Preference: <%= totalVotesOption1 %></h4>
+      </div>
+
+      <% if (maxVotesCandidate) { %>
+        <div class="max-votes-candidate">
+          <h4>Candidate with Maximum Votes for  1st Preference:</h4>
+          <p>Name: <%= maxVotesCandidate.Cname %></p>
+          <p>Votes: <%= maxVotesCandidate.vote_count_option_1 %></p>
+          <% if (totalVotesOption1 > 0) { %>
+            <p>Percentage: <%= maxVotesPercentage.toFixed(2) %> %</p>
+            <p class="<%= maxVotesPercentage > 50 ? 'status-selected' : 'status-not-selected' %>">
+              Status: <%= selectionStatus %>
+            </p>
+          <% } %>
+        </div>
+      <% } %>
+
+      <div class="chart-container">
+        <canvas id="voteChart"></canvas>
+      </div>
+
+    <% } else { %>
+      <div class="container mt-5">
+        <p>No candidates found.</p>
+      </div>
+    <% } %>
+  </div>
+
+  <div class="center-content">
+    <div class="notification">
+        <div class="notification-message">
+            Note: When any candidate fails to reach 50% or above votes, additional calculations are performed.
+        </div>
+        <a class="btn" href="/additional_calculation">Perform Additional Calculations</a>
+    </div>
+</div>
+
+
+  
+  <!-- Include Bootstrap JS and any other scripts -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const ctx = document.getElementById('voteChart').getContext('2d');
+      
+      // Intermediate step to inject data
+      const candidateNames = <%- JSON.stringify(candidates.map(candidate => candidate.Cname)) %>;
+      const votePercentages = <%- JSON.stringify(candidates.map(candidate => candidate.votePercentageOption1.toFixed(2))) %>;
+
+      const voteData = {
+        labels: candidateNames,
+        datasets: [{
+          label: 'Vote Percentage',
+          data: votePercentages,
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)'
+          ],
+          borderColor: [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)'
+          ],
+          borderWidth: 1
+        }]
+      };
+      
+      const config = {
+        type: 'pie',
+        data: voteData,
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {
+              position: 'top',
+            },
+            title: {
+              display: true,
+              text: 'Vote Percentage Distribution'
+            }
+          }
+        },
+      };
+
+      new Chart(ctx, config);
+    });
+  </script>
+</body>
+</html>

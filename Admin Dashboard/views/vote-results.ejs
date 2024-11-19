@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vote Analysis</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        .container {
+            max-width: 800px;
+        }
+        .card {
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .card-body {
+            padding: 20px;
+        }
+        .chart-container {
+            margin-top: 20px;
+            position: relative;
+            height: 300px;
+        }
+        .container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            margin-top: 20px; /* Adjust the top margin to push the header down */
+            font-weight: bold; /* Make the header bold */
+            color: rgba(190, 29, 7, 0.9); /* Light text color */
+        }
+
+        .container img {
+            display: block;
+            margin: 50px auto 40px auto; /* Center image and add bottom margin */
+            width: 600px; /* Adjust width as needed */
+        }
+
+        .back-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: rgba(190, 29, 7, 0.9);
+            color: #fff;
+            border-radius: 8px;
+            padding: 10px 20px;
+            text-decoration: none;
+            transition: transform 0.2s;
+        }
+
+        .back-button:hover {
+            background-color: rgba(199, 173, 56, 0.9);
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="javascript:history.back()" class="back-button">Back</a>
+        <img src="https://elections.gov.lk/images/logo-01.png" alt="Emblem of Sri Lanka">
+    </div>
+    <div class="container mt-5">
+        <h1 class="mb-4">Vote Analysis</h1>
+
+        <div class="card">
+            <div class="card-body">
+                <h2>Total Votes</h2>
+                <p><strong>Number of Voted:</strong> <%= totalYesVotes %></p>
+                <p><strong>Number of Not Voted:</strong> <%= totalNoVotes %></p>
+                <h2>Percentages</h2>
+                <p><strong>Voted Percentage:</strong> <%= yesPercentage %>%</p>
+                <p><strong>Not Voted Percentage:</strong> <%= noPercentage %>%</p>
+                
+                <div class="chart-container">
+                    <canvas id="voteChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="table-container">
+        <table class="table table-bordered table-hover">
+          <thead class="table-dark">
+            <tr>
+              <th>NIC</th>
+              <th>Name</th>
+              <th>Zonal Number</th>
+              <th>Voting Status</th>
+              
+            </tr>
+          </thead>
+          <tbody>
+            <% student.forEach(student => { %>
+              <tr>
+                <td><%= student.Id %></td>
+                <td><%= student.Name %></td>
+                <td><%= student.age %></td>
+                <td><%= student.status %></td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+
+    <!-- Chart.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var ctx = document.getElementById('voteChart').getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Voted', 'Not Voted'],
+                    datasets: [{
+                        label: 'Voted',
+                        data: [<%= totalYesVotes %>, <%= totalNoVotes %>],
+                        backgroundColor: [
+                            'rgba(54, 162, 235, 0.5)',
+                            'rgba(255, 99, 132, 0.5)'
+                        ],
+                        borderColor: [
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 99, 132, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

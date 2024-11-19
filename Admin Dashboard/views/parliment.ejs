@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parliament Election</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for tiles and background image -->
+    <style>
+        /* Full-page background image */
+        body {
+            background: url('https://thumb.photo-ac.com/73/739050586aa8d541f30874d1ecc9628c_t.jpeg') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        /* Centering the tiles */
+        .tiles-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 200px; /* Adjust height to push tiles lower */
+            flex-wrap: wrap;
+        }
+
+        .tile {
+            background-color: rgba(190, 29, 7, 0.9); /* Dark gray background with transparency */
+            color: #fff; /* Light text color */
+            border-radius: 8px;
+            padding: 20px;
+            margin: 10px;
+            text-align: center;
+            width: 150px;
+            transition: transform 0.2s;
+        }
+
+        .tile:hover {
+            background-color: rgba(199, 173, 56, 0.9); /* Slightly lighter gray on hover */
+            transform: scale(1.05);
+        }
+
+        .tile a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .tile a:hover {
+            color: #f8f9fa; /* Light gray on hover */
+        }
+
+        .container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            margin-top: 20px; /* Adjust the top margin to push the header down */
+            font-weight: bold; /* Make the header bold */
+            color: rgba(190, 29, 7, 0.9); /* Light text color */
+        }
+
+        .container img {
+            display: block;
+            margin: 50px auto 40px auto; /* Center image and add bottom margin */
+            width: 600px; /* Adjust width as needed */
+        }
+
+        .back-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: rgba(190, 29, 7, 0.9);
+            color: #fff;
+            border-radius: 8px;
+            padding: 10px 20px;
+            text-decoration: none;
+            transition: transform 0.2s;
+        }
+
+        .back-button:hover {
+            background-color: rgba(199, 173, 56, 0.9);
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Content area -->
+    <div class="content-area">
+        <div class="container">
+            <a href="javascript:history.back()" class="back-button">Back</a>
+            <img src="https://elections.gov.lk/images/logo-01.png" alt="Emblem of Sri Lanka">
+            <h2>Parliament Election</h2>
+            <div class="tiles-container">
+                <div class="tile">
+                    <a href="/addcandidatespl">Candidates</a>
+                </div>
+                <div class="tile">
+                    <a href="/ballotCollectionP">Ballots</a>
+                </div>
+                <div class="tile">
+                    <a href="/vote-results">Vote Analysis</a>
+                </div>
+                <div class="tile">
+                    <a href="/presults">Results</a>
+                </div>
+                <div class="tile">
+                    <a href="/SLmap">Summary</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies (Optional) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
